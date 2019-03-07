@@ -3,6 +3,7 @@ package com.example.jga99.messy_flatmates20;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.jga99.messy_flatmates20.fragments.Calendar_fragment;
+import com.example.jga99.messy_flatmates20.fragments.Create_task_fragment;
+import com.example.jga99.messy_flatmates20.fragments.Group_fragment;
+import com.example.jga99.messy_flatmates20.fragments.Leaderboard_fragment;
+import com.example.jga99.messy_flatmates20.fragments.My_task_fragment;
+import com.example.jga99.messy_flatmates20.fragments.Settings_fragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,14 +40,20 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new Calendar_fragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_create_task);
+        }
+
     }
 
     @Override
@@ -79,19 +93,19 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        FragmentManager fragment_manager = getSupportFragmentManager();
+        if (id == R.id.nav_calendar) {
+            fragment_manager.beginTransaction().replace(R.id.content_frame, new Calendar_fragment()).commit();
+        } else if (id == R.id.nav_create_task) {
+            fragment_manager.beginTransaction().replace(R.id.content_frame, new Create_task_fragment()).commit();
+        } else if (id == R.id.nav_my_tasks) {
+            fragment_manager.beginTransaction().replace(R.id.content_frame, new My_task_fragment()).commit();
+        } else if (id == R.id.nav_group) {
+            fragment_manager.beginTransaction().replace(R.id.content_frame, new Group_fragment()).commit();
+        } else if (id == R.id.nav_leaderboard) {
+            fragment_manager.beginTransaction().replace(R.id.content_frame, new Leaderboard_fragment()).commit();
+        } else if (id == R.id.nav_settings) {
+            fragment_manager.beginTransaction().replace(R.id.content_frame, new Settings_fragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
