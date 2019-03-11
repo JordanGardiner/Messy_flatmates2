@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new Calendar_fragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_create_task);
+            navigationView.setCheckedItem(R.id.nav_calendar);
         }
 
     }

@@ -6,27 +6,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_calendar"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_date_range_black_24dp"
             android:title="Calendar" />
         <item
             android:id="@+id/nav_create_task"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_note_add_black_24dp"
             android:title="Create Task" />
         <item
             android:id="@+id/nav_my_tasks"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_content_paste_black_24dp"
             android:title="My Tasks" />
         <item
             android:id="@+id/nav_group"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_group_black_24dp"
             android:title="Group" />
         <item
             android:id="@+id/nav_leaderboard"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_cake_black_24dp"
             android:title="Leaderboard" />
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_settings_black_24dp"
             android:title="Settings" />
 
     </group>
