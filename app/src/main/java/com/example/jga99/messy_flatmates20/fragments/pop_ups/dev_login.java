@@ -18,7 +18,7 @@ public class dev_login extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.dev_login_popup, container, false);
 
-        
+
 
         return myView;
     }

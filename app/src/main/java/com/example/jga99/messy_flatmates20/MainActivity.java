@@ -1,6 +1,7 @@
 package com.example.jga99.messy_flatmates20;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.jga99.messy_flatmates20.db.db;
 import com.example.jga99.messy_flatmates20.fragments.Calendar_fragment;
 import com.example.jga99.messy_flatmates20.fragments.Create_task_fragment;
 import com.example.jga99.messy_flatmates20.fragments.Group_fragment;
@@ -21,12 +23,27 @@ import com.example.jga99.messy_flatmates20.fragments.Leaderboard_fragment;
 import com.example.jga99.messy_flatmates20.fragments.My_task_fragment;
 import com.example.jga99.messy_flatmates20.fragments.Settings_fragment;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public db database_class  =  new db();
+    public Connection connect;
+    public Bundle bundle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        connect = database_class.get_connection();
+        System.out.println("Here");
+      bundle.putParcelable("connect", (Parcelable)connect);
+      bundle.putParcelable("db", (Parcelable)database_class);
+
+      super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -94,8 +111,14 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentManager fragment_manager = getSupportFragmentManager();
+
+        Calendar_fragment calendar_fragment = new Calendar_fragment();
+        calendar_fragment.setArguments(bundle);
+
+
+
         if (id == R.id.nav_calendar) {
-            fragment_manager.beginTransaction().replace(R.id.content_frame, new Calendar_fragment()).commit();
+            fragment_manager.beginTransaction().replace(R.id.content_frame, calendar_fragment).commit();
         } else if (id == R.id.nav_create_task) {
             fragment_manager.beginTransaction().replace(R.id.content_frame, new Create_task_fragment()).commit();
         } else if (id == R.id.nav_my_tasks) {

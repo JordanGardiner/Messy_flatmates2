@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class db {
 
-    final private String host = "10.196.67.154/phpmyadmin/";
+    final private String host = "jdbc:mysql://10.196.67.154/Messy_Flatmates/";
     final private String user = "root";
     final private String passwd = "root";
 
@@ -15,16 +15,18 @@ public class db {
     public Connection get_connection() {
         Connection connect = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver"); //registers JDBC driver
 
-
-            connect = DriverManager.getConnection("jdbc:mysql://" + host
-                    + "user=" + user + "&password=" + passwd);
+            connect = DriverManager.getConnection(host,user, passwd);
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.print(e.getErrorCode());
+            System.out.print(e.getCause());
+
+        }
+        if(connect == null){
+            System.out.println("Well fuck it didn't work");
+
         }
         return connect;
     }
