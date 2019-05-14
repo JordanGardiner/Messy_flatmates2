@@ -10,23 +10,55 @@ public class db {
     final private String host = "jdbc:mysql://10.196.67.154/Messy_Flatmates/";
     final private String user = "root";
     final private String passwd = "root";
-
+    private Connection connect = null;
 
     public Connection get_connection() {
-        Connection connect = null;
+        Thread thread = new Thread(new Runnable(){
+
+            @Override
+            public void run() {
+                Connection connect = null;
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+
+                    connect = DriverManager.getConnection(host,user, passwd);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    System.out.print(e.getErrorCode());
+                    System.out.print(e.getCause());
+
+                } catch (ClassNotFoundException e){
+                    e.printStackTrace();
+                    System.out.println(e.getException());
+                    System.out.print(e.getCause());
+                    System.out.println("Well fuck, Class not found");
+
+                }
+                if(connect == null){
+                    System.out.println("Well fuck it didn't work");
+                }
+                saveCon(connect);
+
+            }
+        });
         try {
-
-            connect = DriverManager.getConnection(host,user, passwd);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.print(e.getErrorCode());
-            System.out.print(e.getCause());
-
+            thread.start();
+            thread.join();
+        } catch(InterruptedException e) {
+            System.out.println(e.getMessage());
         }
-        if(connect == null){
-            System.out.println("Well fuck it didn't work");
+        return get_connection();
+    }
+    public void saveCon(Connection connection){
+        connect = connection;
+    }
 
+    public Connection getCon(){
+        try{
+            wait(5000);
+        } catch(InterruptedException e){
+            System.out.println(e.getCause());
         }
         return connect;
     }

@@ -1,1 +1,1 @@
-include ':app', ':mssql-jdbc-7.2.2.jre11', ':mssql-jdbc-7.2.2.jre8', ':mysql-connector-java-8.0.16'
+include ':app', ':mssql-jdbc-7.2.2.jre11', ':mssql-jdbc-7.2.2.jre8', ':mysql-connector-java-8.0.16', ':mysql-connector-java-5.1.47'
